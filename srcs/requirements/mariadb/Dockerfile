@@ -15,7 +15,7 @@ skip-networking=0 \n\
 skip-bind-address" >> /etc/mysql/my.cnf
 
 # Copy the dump.sql file to the container
-COPY ./conf/dump.sql /tmp/dump.sql
+#COPY ./conf/dump.sql /tmp/dump.sql
 
 # Start the mariadb service and create a database and user for wordpress
 RUN service mariadb start && \
@@ -24,7 +24,7 @@ RUN service mariadb start && \
 	CREATE USER '$WORDPRESS_USER'@'%' identified by '$WORDPRESS_PASSWORD'; \
 	GRANT ALL ON wordpress_db.* TO '$WORDPRESS_USER'@'%' IDENTIFIED BY '$WORDPRESS_PASSWORD'; \
 	FLUSH PRIVILEGES;" && \
-	mariadb -u root $WORDPRESS_DATABASE < /tmp/dump.sql && \
+	#mariadb -u root $WORDPRESS_DATABASE < /tmp/dump.sql && \
 	service mariadb stop
 
 # Start the mariadb service when the container is run
